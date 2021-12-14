@@ -25,18 +25,24 @@ namespace Projekt3.Controllers
 			return View();
 		}
 
+		[HttpGet]
 		[HttpPost]
-		public IActionResult Login(string option)
+		public IActionResult Login(string Login)
         {
-			string output = "";
-			if(option == "Login" ){ output = null; }
-			else { output = "Wrong Username or Password"; }
+			string output = null;
+			if(Login != "Login" ){ output = "Wrong Username or Password"; }
 
 			ViewBag.Fail = output;
 
+			return View();
+        }
+
+		[HttpPost]
+		public IActionResult CheckCredentials()
+        {
 			
 
-			return View();
+			return RedirectToAction("Login", new { Login = "Failure"} );
         }
 
 		[HttpGet]
