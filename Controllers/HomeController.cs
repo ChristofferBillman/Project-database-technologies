@@ -72,7 +72,32 @@ namespace Projekt3.Controllers
 
 		public IActionResult UserValidation()
         {
+			return View();
+        }
 
+		public IActionResult Home()
+        {
+			return View();
+        }
+
+		public IActionResult Profile()
+        {
+			return View();
+        }
+
+		public IActionResult ProfileEdit()
+        {
+			return View();
+        }
+
+		public IActionResult Explore()
+        {
+			return View();
+        }
+
+		public IActionResult Matches()
+        {
+			return View();
         }
 
 		public IActionResult Privacy()
