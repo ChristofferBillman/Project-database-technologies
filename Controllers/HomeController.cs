@@ -29,6 +29,7 @@ namespace Projekt3.Controllers
 		[HttpPost]
 		public IActionResult Login(string Login)
         {
+			//If login fails, this will set the output for the ViewBag.Fail to login error string.
 			string output = null;
 			if(Login == "Failure" ){ output = "Wrong Username or Password"; }
 
@@ -41,7 +42,7 @@ namespace Projekt3.Controllers
 		public IActionResult CheckCredentials()
         {
 			
-
+			//When credentials don't match, redirect back to the Login screen, triggering a failure message.
 			return RedirectToAction("Login", new { Login = "Failure"} );
         }
 
@@ -50,18 +51,22 @@ namespace Projekt3.Controllers
 		{
 			string error = "";
 
+			// Creating lists to store the different database information to later be loaded into dropdown in view.
 			List<SelectListItem> Sexes = new List<SelectListItem>();
 			List<SelectListItem> SexualPreferences = new List<SelectListItem>();
 			List<SelectListItem> Countries = new List<SelectListItem>();
 
+			// Running methods that fetches the database information for each category.
 			SexMethods sm = new SexMethods();
-			SexualPreferenceMethods spm = SexualPreferenceMethods();
+			SexualPreferenceMethods spm = new SexualPreferenceMethods();
 			CountryMethods cm = new CountryMethods();
 
+			// Store the fetched database information inside the lists.
 			Sexes = sm.SexesMethod();
 			SexualPreferences = spm.SexualPreferencesMethod();
 			Countries = cm.CountriesMethod();
 
+			// ViewBag to send the lists to the views for display.
 			ViewBag.Sex = Sexes;
 			ViewBag.SexPref = SexualPreferences;
 			ViewBag.Country = Countries;
@@ -71,7 +76,32 @@ namespace Projekt3.Controllers
 
 		public IActionResult UserValidation()
         {
+			return View();
+        }
 
+		public IActionResult Home()
+        {
+			return View();
+        }
+
+		public IActionResult Profile()
+        {
+			return View();
+        }
+
+		public IActionResult ProfileEdit()
+        {
+			return View();
+        }
+
+		public IActionResult Explore()
+        {
+			return View();
+        }
+
+		public IActionResult Matches()
+        {
+			return View();
         }
 
 		public IActionResult Privacy()
