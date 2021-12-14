@@ -70,6 +70,11 @@ namespace Projekt3.Controllers
 			return View();
 		}
 
+		public IActionResult UserValidation()
+        {
+
+        }
+
 		public IActionResult Privacy()
 		{
 			return View();
