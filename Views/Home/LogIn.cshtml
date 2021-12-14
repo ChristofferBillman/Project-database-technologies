@@ -7,7 +7,7 @@
 
 <h1>Login</h1>
 
-<form method="post" asp-controller="Account" asp-action="Login">
+<form method="post"  asp-action="Login">
 
     <div class="form-group">
         <label asp-for="Username" class="control-label"></label>
@@ -21,10 +21,10 @@
         <span asp-validation-for="Password" class="text-danger"></span>
     </div>
 
-    <p>@ViewBag.WrongCredentials</p>
+    <p>@ViewBag.Fail</p>
 
 
     <div class="form-group">
-        <input asp-action="Login" type="submit" value="Log in" class="btn btn-primary" />
+        <input asp-action="Home" type="submit" value="Log in" class="btn btn-primary" />
     </div>
 </form>
