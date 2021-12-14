@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Projekt3.Models;
 using System;
@@ -18,16 +19,48 @@ namespace Projekt3.Controllers
 			_logger = logger;
 		}
 
+		[HttpGet]
 		public IActionResult Index()
 		{
 			return View();
 		}
 
+		[HttpPost]
+		public IActionResult Login(string option)
+        {
+			string output = "";
+			if(option == "Login" ){ output = null; }
+			else { output = "Wrong Username or Password"; }
+
+			ViewBag.Fail = output;
+
+			
+
+			return View();
+        }
+
+		[HttpGet]
 		public IActionResult CreateUser()
 		{
-			ViewBag.Sex = null;
-			ViewBag.SexPref = null;
-			ViewBag.Country = null;
+			string error = "";
+
+			List<SelectListItem> Sexes = new List<SelectListItem>();
+			List<SelectListItem> SexualPreferences = new List<SelectListItem>();
+			List<SelectListItem> Countries = new List<SelectListItem>();
+
+
+			SexMethods sm = new SexMethods();
+			SexualPreferenceMethods spm = SexualPreferenceMethods();
+			CountryMethods cm = new CountryMethods();
+
+			Sexes = sm.SexesMethod();
+			SexualPreferences = spm.SexualPreferencesMethod();
+			Countries = cm.CountriesMethod();
+
+			ViewBag.Sex = Sexes;
+			ViewBag.SexPref = SexualPreferences;
+			ViewBag.Country = Countries;
+
 			return View();
 		}
 
