@@ -30,7 +30,7 @@ namespace Projekt3.Controllers
 		public IActionResult Login(string Login)
         {
 			string output = null;
-			if(Login != "Login" ){ output = "Wrong Username or Password"; }
+			if(Login == "Failure" ){ output = "Wrong Username or Password"; }
 
 			ViewBag.Fail = output;
 
