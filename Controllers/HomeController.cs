@@ -19,6 +19,7 @@ namespace Projekt3.Controllers
 			_logger = logger;
 		}
 
+
 		public IActionResult Index()
 		{
 			return View();
@@ -37,6 +38,10 @@ namespace Projekt3.Controllers
 			SexMethods sm = new SexMethods();
 			SexualPreferenceMethods spm = SexualPreferenceMethods();
 			CountryMethods cm = new CountryMethods();
+
+			Sexes = sm.SexesMethod();
+			SexualPreferences = spm.SexualPreferencesMethod();
+			Countries = cm.CountriesMethod();
 
 			ViewBag.Sex = Sexes;
 			ViewBag.SexPref = SexualPreferences;
