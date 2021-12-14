@@ -19,11 +19,25 @@ namespace Projekt3.Controllers
 			_logger = logger;
 		}
 
-
+		[HttpGet]
 		public IActionResult Index()
 		{
 			return View();
 		}
+
+		[HttpPost]
+		public IActionResult Login(string option)
+        {
+			string output = "";
+			if(option == "Login" ){ output = null; }
+			else { output = "Wrong Username or Password"; }
+
+			ViewBag.Fail = output;
+
+			
+
+			return View();
+        }
 
 		[HttpGet]
 		public IActionResult CreateUser()
@@ -46,6 +60,7 @@ namespace Projekt3.Controllers
 			ViewBag.Sex = Sexes;
 			ViewBag.SexPref = SexualPreferences;
 			ViewBag.Country = Countries;
+
 			return View();
 		}
 
