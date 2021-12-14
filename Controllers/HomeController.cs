@@ -23,6 +23,14 @@ namespace Projekt3.Controllers
 			return View();
 		}
 
+		public IActionResult CreateUser()
+		{
+			ViewBag.Sex = null;
+			ViewBag.SexPref = null;
+			ViewBag.Country = null;
+			return View();
+		}
+
 		public IActionResult Privacy()
 		{
 			return View();
