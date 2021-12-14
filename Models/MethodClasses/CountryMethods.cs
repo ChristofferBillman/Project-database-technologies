@@ -7,7 +7,7 @@
 		/// Returns one specific Country based on ID.
 		/// </summary>
 		/// <param CountryID> The ID of the requested Country.</param>
-		/// <returns>Returns the selected.</returns>
+		/// <returns>Returns the selected item.</returns>
 		public static CountryModel SelectOne(int CountryID)
         {
 			DataSet ds = DBMethods.ExecQuery(
@@ -47,7 +47,5 @@
 		{
 			return cm.Name + "," + cm.Emoji + ",";
 		}
-
-
 	}
 }
