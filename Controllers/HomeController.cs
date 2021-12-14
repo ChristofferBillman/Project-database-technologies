@@ -54,7 +54,6 @@ namespace Projekt3.Controllers
 			List<SelectListItem> SexualPreferences = new List<SelectListItem>();
 			List<SelectListItem> Countries = new List<SelectListItem>();
 
-
 			SexMethods sm = new SexMethods();
 			SexualPreferenceMethods spm = SexualPreferenceMethods();
 			CountryMethods cm = new CountryMethods();

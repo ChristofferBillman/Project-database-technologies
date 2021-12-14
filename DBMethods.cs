@@ -7,7 +7,7 @@ namespace Projekt3
 	public class DBMethods
 	{
         // Update with new connstring from Linus when he is done with DB.
-        static readonly string connString = "Server=(localdb)\\mssqllocaldb; Database=Blog; Trusted_Connection=True;";
+        static readonly string connString = "Server=(localdb)\\mssqllocaldb; Database=ProjektDejting; Trusted_Connection=True;";
         
         /// <summary>
         /// Executes a SQL command in the database.
