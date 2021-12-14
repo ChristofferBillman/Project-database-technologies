@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Projekt3.Models;
 using System;
@@ -23,11 +24,23 @@ namespace Projekt3.Controllers
 			return View();
 		}
 
+		[HttpGet]
 		public IActionResult CreateUser()
 		{
-			ViewBag.Sex = null;
-			ViewBag.SexPref = null;
-			ViewBag.Country = null;
+			string error = "";
+
+			List<SelectListItem> Sexes = new List<SelectListItem>();
+			List<SelectListItem> SexualPreferences = new List<SelectListItem>();
+			List<SelectListItem> Countries = new List<SelectListItem>();
+
+
+			SexMethods sm = new SexMethods();
+			SexualPreferenceMethods spm = SexualPreferenceMethods();
+			CountryMethods cm = new CountryMethods();
+
+			ViewBag.Sex = Sexes;
+			ViewBag.SexPref = SexualPreferences;
+			ViewBag.Country = Countries;
 			return View();
 		}
 
