@@ -18,6 +18,19 @@ a {
     border-color: #d96952;
 }
 
+.btn-primary:hover, .btn-primary:active {
+    background-color: #bd432a;
+    border-color: #bd432a;
+}
+
+.word-link {
+    color: #bd432a;
+}
+
+.word-link:hover, .word-link:active {
+    color: #6d1e0e;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
     background-color: #bd432a;
