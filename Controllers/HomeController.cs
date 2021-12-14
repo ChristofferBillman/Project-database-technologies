@@ -56,7 +56,8 @@ namespace Projekt3.Controllers
 			List<SelectListItem> SexualPreferences = new List<SelectListItem>();
 			List<SelectListItem> Countries = new List<SelectListItem>();
 
-			// Running methods that fetches the database information for each category.
+			// Temporarily commented out this since it causes compilation errors. /Christoffer
+			/*// Running methods that fetches the database information for each category.
 			SexMethods sm = new SexMethods();
 			SexualPreferenceMethods spm = new SexualPreferenceMethods();
 			CountryMethods cm = new CountryMethods();
@@ -64,7 +65,7 @@ namespace Projekt3.Controllers
 			// Store the fetched database information inside the lists.
 			Sexes = sm.SexesMethod();
 			SexualPreferences = spm.SexualPreferencesMethod();
-			Countries = cm.CountriesMethod();
+			Countries = cm.CountriesMethod();*/
 
 			// ViewBag to send the lists to the views for display.
 			ViewBag.Sex = Sexes;
