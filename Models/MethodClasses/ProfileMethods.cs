@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Reflection;
-using System.Text;
+﻿using System.Data;
 
 namespace Projekt3.Models
 {
@@ -15,36 +12,34 @@ namespace Projekt3.Models
 
 			return SetFields(ds);
 		}
+		/// <summary>
+		/// Insets a profileModel into the table Tbl_Profile.
+		/// </summary>
+		/// <param name="pm"> The profile to be inserted.</param>
+		/// <returns>Returns true if insert was successful, and false if unsucessful.</returns>
 		public static bool Insert(ProfileModel pm)
 		{
-			StringBuilder sb = new StringBuilder();
-			sb.Append("INSERT INTO Profile VALUES ( ");
-
-			foreach (PropertyInfo prop in pm.GetType().GetProperties())
-			{
-				Console.WriteLine($"{prop.Name}: {prop.GetValue(pm, null)}");
-			}
-
-
-			DBMethods.ExecCommand(sb.ToString());
-			return true;
+			int result = DBMethods.ExecCommand("INSERT INTO Profile VALUES (" + ConvertToString(pm) + ");");
+			return result == 1;
 		}
 
 		private static ProfileModel SetFields(DataSet ds)
 		{
-			Console.WriteLine("Tja");
-			PropertyInfo[] profileModelProperties = typeof(ProfileModel).GetProperties();
-
-			for (int i = 0; i < profileModelProperties.Length; i++)
-			{
-				Console.WriteLine(profileModelProperties[i].Name);
-			}
-
-			ProfileModel pm = new ProfileModel();
-			pm.ID = int.Parse(ds.Tables["data"].Rows[0]["ID"].ToString());
-
-
-			return pm;
+			return new ProfileModel(ds.Tables["data"].Rows[0]);
+		}
+		private static string ConvertToString(ProfileModel pm)
+		{
+			return pm.Firstname + "," +
+				   pm.Lastname + "," +
+				   pm.Age.ToString()+ ","+
+				   pm.Sex+","+
+				   pm.SexualPreference+","+
+				   pm.Country.ToString()+","+
+				   pm.Username+","+
+				   pm.Password+","+
+				   pm.ProfilePicture+","+
+				   pm.Description+","+
+				   pm.Email;
 		}
 	}
 }
