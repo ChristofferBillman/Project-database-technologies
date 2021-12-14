@@ -14,21 +14,21 @@ a {
 
 .btn-primary {
     color: #fff;
-    background-color: #d96952;
-    border-color: #d96952;
+    background-color: #70bca5;
+    border-color: #70bca5;
 }
 
 .btn-primary:hover, .btn-primary:active {
-    background-color: #bd432a;
-    border-color: #bd432a;
+    background-color: #498573;
+    border-color: #498573;
 }
 
 .word-link {
-    color: #bd432a;
+    color: #70bca5;
 }
 
 .word-link:hover, .word-link:active {
-    color: #6d1e0e;
+    color: #498573;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {

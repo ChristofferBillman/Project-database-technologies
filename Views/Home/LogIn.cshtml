@@ -5,9 +5,15 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Login</h1>
+
 
 <form method="post" asp-action="Login">
+    
+    <div class="col-md-4">
+        <div class="form-group">
+            <h1>Login</h1>
+        </div>
+    </div>
 
     <div class="col-md-4">
         <div class="form-group">
@@ -17,18 +23,23 @@
         </div>
     </div>
 
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" type="password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="Password" class="control-label"></label>
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
         </div>
+    </div>
 
-        <p>@ViewBag.Fail</p>
+    <div class="col-md-4">
+        <div class="form-group">
+            <p>@ViewBag.Fail</p>
+        </div>
+    </div>
 
-
-<div class="form-group">
-    <input asp-action="CheckCredentials" type="submit" value="Log in" class="btn btn-primary" />
-</div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <input asp-action="Home" type="submit" value="Log in" class="btn btn-primary" />
+        </div>
+    </div>
 </form>
