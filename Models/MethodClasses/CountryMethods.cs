@@ -1,4 +1,6 @@
-﻿namespace Projekt3.Models
+﻿using System.Data;
+
+namespace Projekt3.Models
 {
 	public class CountryMethods
 	{
