@@ -2,15 +2,12 @@
 {
 	public class CountryModel
 	{
-		public int ID;
-		public string Name;
-		public char Emoji;
+		public int ID { get; }
+		public string Name { get; set; }
+		public char Emoji { get; set; }
 
 		public CountryModel()
 		{
-			public int ID { get; }
-			public string Name { get; set;}
-			public char Emoji { get; set;}
 			
 		}
 	}
