@@ -13,6 +13,7 @@ namespace Projekt3.Models
 		public int Country { get; set; }
 		public string Username { get; set; }
 		public string Password { get; set; }
+		public string Salt { get; set; }
 		public string ProfilePicture { get; set;}
 		public string Description { get; set; }
 		public string Email { get; set; }
@@ -30,6 +31,7 @@ namespace Projekt3.Models
 			ProfilePicture = values[9].ToString();
 			Description = values[10].ToString();
 			Email = values[11].ToString();
+			Salt = values[12].ToString();
 		}
 	}
 }

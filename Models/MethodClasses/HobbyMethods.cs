@@ -1,4 +1,6 @@
-﻿namespace Projekt3.Models.MethodClasses
+﻿using System.Data;
+
+namespace Projekt3.Models.MethodClasses
 {
 	public static class HobbyMethods
 	{

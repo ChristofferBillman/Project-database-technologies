@@ -1,18 +1,18 @@
-﻿namespace Projekt3.Models
+﻿using System.Data;
+
+namespace Projekt3.Models
 {
 	public class HobbyModel
 	{
-		public int ID;
-		public string Name;
-		public char Emoji;
+		public int ID { get; }
+		public string Name { get; set; }
+		public char Emoji { get; set; }
 
-		public HobbyModel()
+		public HobbyModel(DataRow values)
 		{
-			public int ID { get; }
-			public string Name { get; set;}
-			public char Emoji { get; set;}
-			
+			ID = int.Parse(values[0].ToString());
+			Name = values[1].ToString();
+			Emoji = char.Parse(values[2].ToString());
 		}
-
 	}
 }
