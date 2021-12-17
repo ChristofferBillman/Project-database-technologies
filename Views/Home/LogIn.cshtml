@@ -8,38 +8,44 @@
 
 
 <form method="post" asp-action="Login">
-    
-    <div class="col-md-4">
-        <div class="form-group">
-            <h1>Login</h1>
+        <div class="loginpage">
+            <div class="form-group">
+                <h1>Login</h1>
+            </div>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="form-group">
-            <label asp-for="Username" class="control-label"></label>
-            <input asp-for="Username" class="form-control" />
-            <span asp-validation-for="Username" class="text-danger"></span>
+        <div class="imgcontainer">
+            <img src="https://source.unsplash.com/600x300/?student" alt="student dp" class="avatar">
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="form-group">
-            <label asp-for="Password" class="control-label"></label>
-            <input asp-for="Password" type="password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
+        <div class="loginpage">
+                <div class="form-group">
+                    <label asp-for="Username" class="control-label"></label>
+                    <input asp-for="Username" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="form-group">
-            <p>@ViewBag.Fail</p>
-        </div>
-    </div>
+        <div class="loginpage">
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
 
-    <div class="col-md-4">
-        <div class="form-group">
-            <input asp-action="Home" type="submit" value="Log in" class="btn btn-primary" />
+
+        <div class="loginpage">
+            <div class="form-group">
+                <p>@ViewBag.Fail</p>
+            </div>
         </div>
-    </div>
+       
+
+        <div class="loginpage">
+            <div class="form-group">
+                <input asp-action="Home" type="submit" value="Log in" class="btn btn-primary" />
+            </div>
+        </div>
+
 </form>
