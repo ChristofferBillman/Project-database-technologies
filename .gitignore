@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# When using vscode.
+.vscode
+# When using mac.
+.DS_Store
