@@ -27,8 +27,6 @@ namespace Projekt3.Controllers
 		[HttpPost]
 		public IActionResult Login(IFormCollection form)
 		{
-			//If login fails, this will set the output for the ViewBag.Fail to login error string.
-
 			// Do nullcheck on form before accessing values.
 			if(form.ContainsKey("username")){
 				if(form.ContainsKey("password")){
@@ -38,11 +36,9 @@ namespace Projekt3.Controllers
 				return View();
 			}
 
-			// Implement Select(string username).
 			// Get user.
 			ProfileModel pm = ProfileMethods.SelectOne(form["username"]);
 
-			// Rewrite authenticate to take a ProfileModel instead of ID.
 			// If auth successful, redirect to home.
 			if(Auth.Authenticate(pm,form["password"])){
 				// Append token to response as cookie.
@@ -54,7 +50,7 @@ namespace Projekt3.Controllers
 			}
 			
 			return View();
-        }
+		}
 
 		[HttpPost]
 		public IActionResult CheckCredentials()
