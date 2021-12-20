@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System;
 
 namespace Projekt3.Models
 {
@@ -22,9 +23,8 @@ namespace Projekt3.Models
 		public static ProfileModel SelectOne(string username)
 		{
 			DataSet ds = DBMethods.ExecQuery(
-				"SELECT * FROM dbo.Tbl_Profile " +
-				"WHERE Pr_Username = " + username + ";");
-
+				"SELECT * FROM dbo.Tbl_Profile " + "WHERE Pr_Username = '" + username + "'" );
+				Console.WriteLine("SELECT * FROM dbo.Tbl_Profile " + "WHERE Pr_Username = '" + username + "'" );
 			return SetFields(ds);
 		}
 		/// <summary>

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Projekt3.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System;
 
 namespace Projekt3.Controllers
 {
@@ -27,28 +28,29 @@ namespace Projekt3.Controllers
 		[HttpPost]
 		public IActionResult Login(IFormCollection form)
 		{
-			// Do nullcheck on form before accessing values.
-			if(form.ContainsKey("username")){
-				if(form.ContainsKey("password")){
-					ViewBag.fail = "Username found but no password. Nåt är riktigt fel.";
-					return View();
-				}
-				return View();
-			}
-
-			// Get user.
-			ProfileModel pm = ProfileMethods.SelectOne(form["username"]);
-
-			// If auth successful, redirect to home.
-			if(Auth.Authenticate(pm,form["password"])){
-				// Append token to response as cookie.
-				Response.Cookies.Append("token",pm.ID + "_" +Auth.Hash(form["password"],pm.Salt));
-				return RedirectToAction("Home","Home");
-			}
-			else{
-				ViewBag.fail = "Wrong password or username.";
-			}
 			
+			ViewBag.fail = "Username: " + form["Username"] + "    Pass: " + form["Password"];
+			// Do nullcheck on form before accessing values.
+
+			Console.WriteLine("contains username: " + form.ContainsKey("Username"));
+			Console.WriteLine("username is '': " + form["Username"] != "");
+
+			if(form.ContainsKey("Username") && form.ContainsKey("Password")){
+				
+				// Get user.
+				ProfileModel pm = ProfileMethods.SelectOne(form["Username"]);
+
+				// If auth successful, redirect to home.
+				if(Auth.Authenticate(pm,form["Password"])){
+					// Append token to response as cookie.
+					Response.Cookies.Append("token",pm.ID + "_" +Auth.Hash(form["Password"],pm.Salt));
+					return RedirectToAction("Home","Home");
+				}
+				else{
+					ViewBag.fail = "Wrong password or username.";
+				}
+				Console.WriteLine("Vi kom hit :(");
+			}
 			return View();
 		}
 
