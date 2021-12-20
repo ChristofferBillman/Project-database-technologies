@@ -13,7 +13,7 @@ namespace Projekt3.Models.MethodClasses
 		public static HobbyModel SelectOne(int HobbyID)
         {
 			DataSet ds = DBMethods.ExecQuery(
-				"SELECT * FROM dbo.Tbl_Hobby " +
+				"SELECT * FROM Tbl_Hobby " +
 				"WHERE Ho_Id = " + HobbyID + ";");
 
 			return SetFields(ds);
@@ -36,7 +36,7 @@ namespace Projekt3.Models.MethodClasses
 		/// <returns> Returns true if the insert went through and false if it did not.</returns>
 		public static bool Insert(HobbyModel hm)
 		{
-			int result = DBMethods.ExecCommand("INSERT INTO dbo.Tbl_Hobby VALUES (" + ConvertToString(hm) + ");");
+			int result = DBMethods.ExecCommand("INSERT INTO Tbl_Hobby VALUES (" + ConvertToString(hm) + ");");
 			return result == 1;
 		}
 
