@@ -39,10 +39,8 @@ namespace Projekt3
 		/// <param name="profileId">The users profileId.</param>
 		/// <param name="password">The users password.</param>
 		/// <returns>True if password is correct, otherwise false.</returns>
-		public static bool Authenticate(int profileId, string password)
+		public static bool Authenticate(ProfileModel pm, string password)
 		{
-			ProfileModel pm = ProfileMethods.SelectOne(profileId);
-
 			if (pm == null) return false;
 
 			if (Hash(password,pm.Salt) == pm.Password)
