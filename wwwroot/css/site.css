@@ -130,7 +130,8 @@ img.avatar {
     text-align: center;
 }
 
-/*--------- start page ----------*/
+/*--------- header ----------*/
 
-
-
+.nav-item {
+    margin: 3px;
+}
