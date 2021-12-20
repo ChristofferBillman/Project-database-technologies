@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Projekt3.Models;
@@ -24,16 +25,32 @@ namespace Projekt3.Controllers
 
 		[HttpGet]
 		[HttpPost]
-		public IActionResult Login(string Login)
-        {
-			//If login fails, this will set the output for the ViewBag.Fail to login error string.
-			string output = null;
-			if(Login == "Failure" ){ output = "Wrong Username or Password"; }
+		public IActionResult Login(IFormCollection form)
+		{
+			// Do nullcheck on form before accessing values.
+			if(form.ContainsKey("username")){
+				if(form.ContainsKey("password")){
+					ViewBag.fail = "Username found but no password. Nåt är riktigt fel.";
+					return View();
+				}
+				return View();
+			}
 
-			ViewBag.Fail = output;
+			// Get user.
+			ProfileModel pm = ProfileMethods.SelectOne(form["username"]);
 
+			// If auth successful, redirect to home.
+			if(Auth.Authenticate(pm,form["password"])){
+				// Append token to response as cookie.
+				Response.Cookies.Append("token",pm.ID + "_" +Auth.Hash(form["password"],pm.Salt));
+				return RedirectToAction("Home","Home");
+			}
+			else{
+				ViewBag.fail = "Wrong password or username.";
+			}
+			
 			return View();
-        }
+		}
 
 		[HttpPost]
 		public IActionResult CheckCredentials()
