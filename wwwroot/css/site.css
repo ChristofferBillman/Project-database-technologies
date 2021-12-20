@@ -135,3 +135,18 @@ img.avatar {
 .nav-item {
     margin: 3px;
 }
+
+/*-------- start page -----------*/
+
+.centeredCaption {
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    text-align: center;
+    padding: 40px;
+    border-radius: 20% 20% 20% 20%;
+}
+
+.indexCaption {
+    font-size: 200px;
+}

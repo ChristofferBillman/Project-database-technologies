@@ -20,6 +20,7 @@ namespace Projekt3.Models
 
 			return SetFields(ds);
 		}
+
 		public static ProfileModel SelectOne(string username)
 		{
 			DataSet ds = DBMethods.ExecQuery(
@@ -66,6 +67,7 @@ namespace Projekt3.Models
 			}
 			return results;
 		}
+
 		/// <summary>
 		/// Insets a profileModel into the table Tbl_Profile.
 		/// </summary>
@@ -73,11 +75,16 @@ namespace Projekt3.Models
 		/// <returns>Returns true if successful, false otherwise.</returns>
 		public static bool Insert(ProfileModel pm)
 		{
+			Console.WriteLine("INSERT INTO dbo.Tbl_Profile " +
+				"VALUES (" + GetString(pm) + ");");
+			
 			int result = DBMethods.ExecCommand(
 				"INSERT INTO dbo.Tbl_Profile " +
+				"(Pr_Firstname, Pr_Lastname, Pr_Age, Pr_Sex, Pr_Pref, Pr_Country, Pr_Username, Pr_Password, Pr_Salt, Pr_Pic, Pr_Desc, Pr_Email) " +
 				"VALUES (" + GetString(pm) + ");");
-			return result == 1;
+			return result > 0;
 		}
+
 		/// <summary>
 		/// Removes a profile from the database, given its ID.
 		///	NOTE: Only executes a delete on given profile.
@@ -92,6 +99,8 @@ namespace Projekt3.Models
 				"WHERE Pr_Id = " + ID + ");");
 			return result == 1;
 		}
+
+
 		/// <summary>
 		/// Finds the corresponding profile in the database (with the given ProfileModel's ID),
 		/// and replaces the values in the DB with the values in the given ProfileModel.
@@ -119,6 +128,8 @@ namespace Projekt3.Models
 		{
 			return new ProfileModel(ds.Tables["data"].Rows[0]);
 		}
+
+
 		/// <summary>
 		/// Generates a string representation of the object.
 		/// All values except ID held in the ProfileModel are put into a string, comma delimited.
@@ -128,17 +139,18 @@ namespace Projekt3.Models
 		/// <returns> A string representation of the given ProfileModel.</returns>
 		private static string GetString(ProfileModel pm)
 		{
-			return pm.Firstname + "," +
-				   pm.Lastname + "," +
+			return "'" + pm.Firstname + "' ," +
+				   "'" + pm.Lastname + "'," +
 				   pm.Age.ToString()+ ","+
-				   pm.Sex+","+
-				   pm.SexualPreference+","+
+				   "'" + pm.Sex+"',"+
+				   "'" + pm.SexualPreference+"',"+
 				   pm.Country.ToString()+","+
-				   pm.Username+","+
-				   pm.Password+","+
-				   pm.ProfilePicture+","+
-				   pm.Description+","+
-				   pm.Email;
+				   "'" + pm.Username+"',"+
+				   "'" + pm.Password+"',"+
+				   "'" + pm.Salt + "',"+
+				   "'" + pm.ProfilePicture+"',"+
+				   "'" + pm.Description+"',"+
+				   "'" + pm.Email + "'";
 		}
 	}
 }

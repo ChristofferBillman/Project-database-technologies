@@ -34,7 +34,7 @@ namespace Projekt3.Models
 			List<SelectListItem> countries = new List<SelectListItem>();
 
 			foreach(DataRow row in ds.Tables["data"].Rows){
-				countries.Add(new SelectListItem() { Text = row[1].ToString(), Value = row[1].ToString() });
+				countries.Add(new SelectListItem() { Text = row[1].ToString(), Value = row[0].ToString() });
 			}
 
 			return countries;

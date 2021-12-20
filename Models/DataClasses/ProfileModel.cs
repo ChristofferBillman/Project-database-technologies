@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using Microsoft.AspNetCore.Http;
+using System.Data;
+using System;
 
 namespace Projekt3.Models
 {
@@ -28,10 +30,23 @@ namespace Projekt3.Models
 			Country = int.Parse(values[6].ToString());
 			Username = values[7].ToString();
 			Password = values[8].ToString();
-			ProfilePicture = values[9].ToString();
-			Description = values[10].ToString();
-			Email = values[11].ToString();
-			Salt = values[12].ToString();
+			Salt = values[9].ToString();
+			ProfilePicture = values[10].ToString();
+			Description = values[11].ToString();
+			Email = values[12].ToString();
+		}
+		public ProfileModel(IFormCollection form)
+		{
+			Firstname = form["Firstname"];
+			Lastname = form["Lastname"];
+			Age = Convert.ToInt32(form["Age"]);
+			Sex = form["Sex"];
+			SexualPreference = form["SexualPreference"];
+			Country = Convert.ToInt32(form["Country"]);
+			Username = form["Username"];
+			ProfilePicture = form["ProfilePicture"];
+			Description = form["Description"];
+			Email = form["Email"];
 		}
 	}
 }

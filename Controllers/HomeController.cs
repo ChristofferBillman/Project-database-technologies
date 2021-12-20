@@ -6,6 +6,8 @@ using Projekt3.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Projekt3.Controllers
 {
@@ -13,7 +15,7 @@ namespace Projekt3.Controllers
 	{
 		private readonly ILogger<HomeController> _logger;
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController( ILogger<HomeController> logger)
 		{
 			_logger = logger;
 		}
@@ -26,10 +28,12 @@ namespace Projekt3.Controllers
 
 		[HttpGet]
 		[HttpPost]
-		public IActionResult Login(IFormCollection form)
+		public IActionResult Login(IFormCollection form, bool success)
 		{
 			
-			ViewBag.fail = "Username: " + form["Username"] + "    Pass: " + form["Password"];
+			/*if(!success){
+				ViewBag.fail = "Something went wrong when creating user. Try again.";
+			}*/
 			// Do nullcheck on form before accessing values.
 
 			Console.WriteLine("contains username: " + form.ContainsKey("Username"));
@@ -56,7 +60,7 @@ namespace Projekt3.Controllers
 
 		[HttpPost]
 		public IActionResult CheckCredentials()
-        {
+		{
 			
 			//When credentials don't match, redirect back to the Login screen, triggering a failure message.
 			return RedirectToAction("Login", new { Login = "Failure"} );
@@ -65,8 +69,6 @@ namespace Projekt3.Controllers
 		[HttpGet]
 		public IActionResult CreateUser()
 		{
-			string error = "";
-
 			// Creating lists to store the different database information to later be loaded into dropdown in view.
 			List<SelectListItem> Sexes = new List<SelectListItem>();
 			Sexes.Add(new SelectListItem() { Text = "Male", Value = "Male" });
@@ -81,7 +83,7 @@ namespace Projekt3.Controllers
 			List<SelectListItem> Countries = new List<SelectListItem>();
 			Countries = CountryMethods.SelectAll();
 
-		// ViewBag to send the lists to the views for display.
+			// ViewBag to send the lists to the views for display.
 			ViewBag.Sex = Sexes;
 			ViewBag.SexPref = SexualPreferences;
 			ViewBag.Country = Countries;
@@ -89,10 +91,35 @@ namespace Projekt3.Controllers
 			return View();
 		}
 
-		public IActionResult UserValidation()
-        {
-			return View();
-        }
+		[HttpPost]
+		public async Task<IActionResult> InsertUser(IFormCollection form, IFormFile uploadFile)
+		{
+			ProfileModel pm = new ProfileModel(form);
+			pm.Salt = Auth.GetRandomSalt();
+			pm.Password = Auth.Hash(form["password"],pm.Salt);
+			bool success = ProfileMethods.Insert(pm);
+
+
+
+			if (uploadFile != null && uploadFile.Length > 0)
+			{
+				Console.WriteLine("Tar oss i hit");
+				var fileName = Path.GetFileName(uploadFile.FileName);
+				//---------------------------------------------------------- HÄR MÅSTE MAN FIXA MED SIN EGEN DIRECTORY--------------------------------------------------------
+				var filePath = Path.Combine(Directory.GetCurrentDirectory(), "/Users/macca/VIKTORIAS_TILLFÄLLIGA_MAPP_DATABASER/1.0DatabasProjekt/wwwroot/images/", fileName);
+				pm.ProfilePicture = filePath;
+
+				using (var fileSrteam = new FileStream(filePath, FileMode.Create))
+				{
+					await uploadFile.CopyToAsync(fileSrteam);
+				}
+			}
+
+			if (success){
+				return RedirectToAction("Home", "Home");
+			}
+			return RedirectToAction("CreateUser","Home", new {success = false});
+		}
 
 		public IActionResult Home()
         {
@@ -104,9 +131,38 @@ namespace Projekt3.Controllers
 			return View();
         }
 
+		[HttpGet]
 		public IActionResult ProfileEdit()
         {
+			string token = Request.Cookies["Token"];
+			int profileId = int.Parse(token.Split('_')[0]);
+
+
+			ProfileModel pm = ProfileMethods.SelectOne(profileId);
+
+			ViewBag.Username = pm.Username;
+			ViewBag.Password = pm.Password;
+			ViewBag.FirstName = pm.Firstname;
+			ViewBag.LastName = pm.Lastname;
+			ViewBag.Age = pm.Age;
+			ViewBag.Email = pm.Email;
+			ViewBag.Gender = pm.Sex;
+			ViewBag.SexualOrientation = pm.SexualPreference;
+			ViewBag.Country = pm.Country;
+			ViewBag.Pfp = pm.ProfilePicture;
+			ViewBag.Desc = pm.Description;
+
 			return View();
+        }
+
+		[HttpPost]
+		public IActionResult ProfileEditApply(IFormCollection form, IFormFile upload)
+        {
+			ProfileModel pm = new ProfileModel(form);
+
+			//ADD FILE UPLOAD
+
+			return RedirectToAction("Profile", "Home");
         }
 
 		public IActionResult Explore()
@@ -129,5 +185,6 @@ namespace Projekt3.Controllers
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
-	}
+	
+    }
 }
