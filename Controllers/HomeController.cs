@@ -69,21 +69,19 @@ namespace Projekt3.Controllers
 
 			// Creating lists to store the different database information to later be loaded into dropdown in view.
 			List<SelectListItem> Sexes = new List<SelectListItem>();
+			Sexes.Add(new SelectListItem() { Text = "Male", Value = "Male" });
+			Sexes.Add(new SelectListItem() { Text = "Female", Value = "Female" });
+			Sexes.Add(new SelectListItem() { Text = "Non-binary", Value = "Non-binary" });
+
 			List<SelectListItem> SexualPreferences = new List<SelectListItem>();
+			SexualPreferences.Add(new SelectListItem(){Text="Heterosexual", Value="Hetero"});
+			SexualPreferences.Add(new SelectListItem(){Text="Homosexual", Value="Homo"});
+			SexualPreferences.Add(new SelectListItem(){Text="Bisexual", Value="Bi"});
+
 			List<SelectListItem> Countries = new List<SelectListItem>();
+			Countries = CountryMethods.SelectAll();
 
-			// Temporarily commented out this since it causes compilation errors. /Christoffer
-			/*// Running methods that fetches the database information for each category.
-			SexMethods sm = new SexMethods();
-			SexualPreferenceMethods spm = new SexualPreferenceMethods();
-			CountryMethods cm = new CountryMethods();
-
-			// Store the fetched database information inside the lists.
-			Sexes = sm.SexesMethod();
-			SexualPreferences = spm.SexualPreferencesMethod();
-			Countries = cm.CountriesMethod();*/
-
-			// ViewBag to send the lists to the views for display.
+		// ViewBag to send the lists to the views for display.
 			ViewBag.Sex = Sexes;
 			ViewBag.SexPref = SexualPreferences;
 			ViewBag.Country = Countries;

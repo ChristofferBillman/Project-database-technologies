@@ -1,8 +1,10 @@
-﻿using System.Data;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Projekt3.Models
 {
-	public class CountryMethods
+	public static class CountryMethods
 	{
 
 		/// <summary>
@@ -17,6 +19,25 @@ namespace Projekt3.Models
 				"WHERE Co_Id = " + CountryID + ";");
 
 			return SetFields(ds);
+        }
+
+				/// <summary>
+		/// Returns one specific Country based on ID.
+		/// </summary>
+		/// <param CountryID> The ID of the requested Country.</param>
+		/// <returns>Returns the selected item.</returns>
+		public static List<SelectListItem> SelectAll()
+        {
+			DataSet ds = DBMethods.ExecQuery(
+				"SELECT * FROM dbo.Tbl_Country");
+
+			List<SelectListItem> countries = new List<SelectListItem>();
+
+			foreach(DataRow row in ds.Tables["data"].Rows){
+				countries.Add(new SelectListItem() { Text = row[1].ToString(), Value = row[1].ToString() });
+			}
+
+			return countries;
         }
 
 		/// <summary>
