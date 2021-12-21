@@ -16,7 +16,6 @@ namespace Projekt3
 		/// <returns> The number of rows affected. </returns>
 		public static int ExecCommand(string sqlstring)
 		{
-			Console.WriteLine(Config.USEMYSQL);
 			if(Config.USEMYSQL){
 				MySqlConnection DBConnection = new MySqlConnection();
 				DBConnection.ConnectionString = connString;
