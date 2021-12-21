@@ -366,3 +366,5 @@ FodyWeavers.xsd
 .vscode
 # When using mac.
 .DS_Store
+# Ignore Config.cs.
+Config.cs
