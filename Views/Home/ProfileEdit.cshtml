@@ -16,14 +16,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Username" class="control-label"></label>
-                        <input asp-for="Username" class="form-control" />
+                        <input asp-for="Username" class="form-control" value="@ViewBag.pm.Username" />
                         <span asp-validation-for="Username" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Password" class="control-label"></label>
-                        <input asp-for="Password" type="password" class="form-control" />
+                        <input asp-for="Password" type="password" class="form-control" value="@ViewBag.pm.Password" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
@@ -33,14 +33,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>First name</label>
-                        <input asp-for="Firstname" class="form-control" />
+                        <input asp-for="Firstname" class="form-control" value="@ViewBag.pm.Firstname" />
                         <span asp-validation-for="Firstname" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Last name</label>
-                        <input asp-for="Lastname" class="form-control" />
+                        <input asp-for="Lastname" class="form-control" value="@ViewBag.pm.Lastname" />
                         <span asp-validation-for="Lastname" class="text-danger"></span>
                     </div>
                 </div>
@@ -50,14 +50,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Age" class="control-label"></label>
-                        <input asp-for="Age" class="form-control" />
+                        <input asp-for="Age" class="form-control" value="@ViewBag.pm.Age" />
                         <span asp-validation-for="Age" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Email" class="control-label"></label>
-                        <input asp-for="Email" class="form-control" />
+                        <input asp-for="Email" class="form-control" value="@ViewBag.pm.Email" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
@@ -67,13 +67,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Gender</label>
-                        <select name="Sex" class="form-control" asp-items="@ViewBag.Sex"></select>
+                        <select name="Sex" class="form-control" asp-items="@ViewBag.Sex" selected="@ViewBag.pm.Gender"></select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Sexual Orientation</label>
-                        <select name="SexualPreference" class="form-control" asp-items="@ViewBag.SexPref"></select>
+                        <select name="SexualPreference" class="form-control" asp-items="@ViewBag.SexPref" selected="@ViewBag.pm.SexualPreference"></select>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Country</label>
-                        <select name="Country" class="form-control" asp-items="@ViewBag.Country"></select>
+                        <select name="Country" class="form-control" asp-items="@ViewBag.Country" selected="@ViewBag.pm.Country" ></select>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -102,7 +102,7 @@
                     <div class="form-group">
                         <label>Description</label>
                         <div class="custom-file">
-                            <input asp-for="Description" class="custom-file-input" id="customFile">
+                            <input asp-for="Description" class="custom-file-input" id="customFile" value="@ViewBag.pm.Description">
                             <label class="custom-file-label" for="customFile">Pick file</label>
                         </div>
                         <span asp-validation-for="ProfilePicture" class="text-danger"></span>

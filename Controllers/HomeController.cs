@@ -140,17 +140,7 @@ namespace Projekt3.Controllers
 
 			ProfileModel pm = ProfileMethods.SelectOne(profileId);
 
-			ViewBag.Username = pm.Username;
-			ViewBag.Password = pm.Password;
-			ViewBag.FirstName = pm.Firstname;
-			ViewBag.LastName = pm.Lastname;
-			ViewBag.Age = pm.Age;
-			ViewBag.Email = pm.Email;
-			ViewBag.Gender = pm.Sex;
-			ViewBag.SexualOrientation = pm.SexualPreference;
-			ViewBag.Country = pm.Country;
-			ViewBag.Pfp = pm.ProfilePicture;
-			ViewBag.Desc = pm.Description;
+			ViewBag.pm = pm;
 
 			return View();
         }
