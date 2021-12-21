@@ -149,6 +149,7 @@ namespace Projekt3.Controllers
 		public IActionResult ProfileEditApply(IFormCollection form, IFormFile upload)
         {
 			ProfileModel pm = new ProfileModel(form);
+			ProfileMethods.Update(pm);
 
 			//ADD FILE UPLOAD
 
