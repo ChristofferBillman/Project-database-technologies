@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Reflection;
+using System.Linq;
 
 namespace Projekt3.Controllers
 {
@@ -95,25 +95,15 @@ namespace Projekt3.Controllers
 		[HttpPost]
 		public async Task<IActionResult> InsertUser(IFormCollection form, IFormFile uploadFile)
 		{
+			// Get user
 			ProfileModel pm = new ProfileModel(form);
+			// Generate salt and hash for user.
 			pm.Salt = Auth.GetRandomSalt();
 			pm.Password = Auth.Hash(form["password"],pm.Salt);
+			// Insert into DB.
 			bool success = ProfileMethods.Insert(pm);
 
-
-
-			if (uploadFile != null && uploadFile.Length > 0)
-			{
-				var fileName = Path.GetFileName(uploadFile.FileName);
-
-				var filePath = Path.Combine("wwwroot/images/", fileName);
-				pm.ProfilePicture = filePath;
-
-				using (var fileSrteam = new FileStream(filePath, FileMode.Create))
-				{
-					await uploadFile.CopyToAsync(fileSrteam);
-				}
-			}
+			await RecieveFile(uploadFile, pm);
 
 			if (success){
 				return RedirectToAction("Home", "Home");
@@ -182,6 +172,58 @@ namespace Projekt3.Controllers
 		public IActionResult Error()
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+		/// <summary>
+		/// Saves the provided IFormFile into the directory
+		/// wwwroot/uploadedfiles and sets this file as
+        /// the profile picture of the provided ProfileModel.
+		/// </summary>
+		/// <param name="uploadFile"></param>
+		private async Task RecieveFile(IFormFile uploadFile,ProfileModel pm)
+        {
+			if (uploadFile != null && uploadFile.Length > 0)
+			{
+				// Get the type of file (png, jpeg, webp, etc...)
+				string fileExtension = System.IO.Path.GetExtension(
+					uploadFile.FileName);
+
+				// The purpose of count.txt is to keep track of how many
+				// images have been uploaded and to make sure no duplicate
+				// file names exist. New files are namned to the next index.
+
+				int index;
+				try
+				{
+					// Try to read the first line of file count.txt.
+					index = int.Parse(System.IO.File.ReadLines(
+					"wwwroot/uploadedfiles/count.txt")
+					.First());
+				}
+				// If the file does not exist, start index from 0.
+				catch (FileNotFoundException)
+				{
+					index = 0;
+				}
+
+				index++;
+
+				// Write index to count.txt. If count.txt does not
+				// exist, WriteAllText creates a file and writes to it.
+				System.IO.File.WriteAllText(
+					"wwwroot/uploadedfiles/count.txt",
+					index.ToString());
+
+				// Set the name of the incoming file to index.
+				string fileName = index.ToString() + fileExtension;
+				string filePath = Path.Combine("wwwroot/uploadedfiles/", fileName);
+
+				pm.ProfilePicture = filePath;
+
+				using (var fileSrteam = new FileStream(filePath, FileMode.Create))
+				{
+					await uploadFile.CopyToAsync(fileSrteam);
+				}
+			}
 		}
 	
     }
