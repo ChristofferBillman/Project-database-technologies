@@ -15,7 +15,7 @@ namespace Projekt3.Models
 		public static ProfileModel SelectOne(int ProfileID)
 		{
 			DataSet ds = DBMethods.ExecQuery(
-				"SELECT * FROM dbo.Tbl_Profile " +
+				"SELECT * FROM Tbl_Profile " +
 				"WHERE Pr_Id = " + ProfileID + ";");
 
 			return SetFields(ds);
@@ -24,8 +24,8 @@ namespace Projekt3.Models
 		public static ProfileModel SelectOne(string username)
 		{
 			DataSet ds = DBMethods.ExecQuery(
-				"SELECT * FROM dbo.Tbl_Profile " + "WHERE Pr_Username = '" + username + "'" );
-				Console.WriteLine("SELECT * FROM dbo.Tbl_Profile " + "WHERE Pr_Username = '" + username + "'" );
+				"SELECT * FROM Tbl_Profile " + "WHERE Pr_Username = '" + username + "'" );
+				Console.WriteLine("SELECT * FROM Tbl_Profile " + "WHERE Pr_Username = '" + username + "'" );
 			return SetFields(ds);
 		}
 		/// <summary>
@@ -53,7 +53,7 @@ namespace Projekt3.Models
 
 			// Generate the SQL-string.
 			string SQLString = 
-				"SELECT * FROM dbo.Tbl_Profile " +
+				"SELECT * FROM Tbl_Profile " +
 				"WHERE Pr_" + field + "=" + (field == "Age" ? query : "'" + query + "'") + ";";
 
 			// Execute the SQL string.
@@ -75,11 +75,11 @@ namespace Projekt3.Models
 		/// <returns>Returns true if successful, false otherwise.</returns>
 		public static bool Insert(ProfileModel pm)
 		{
-			Console.WriteLine("INSERT INTO dbo.Tbl_Profile " +
+			Console.WriteLine("INSERT INTO Tbl_Profile " +
 				"VALUES (" + GetString(pm) + ");");
 			
 			int result = DBMethods.ExecCommand(
-				"INSERT INTO dbo.Tbl_Profile " +
+				"INSERT INTO Tbl_Profile " +
 				"(Pr_Firstname, Pr_Lastname, Pr_Age, Pr_Sex, Pr_Pref, Pr_Country, Pr_Username, Pr_Password, Pr_Salt, Pr_Pic, Pr_Desc, Pr_Email) " +
 				"VALUES (" + GetString(pm) + ");");
 			return result > 0;
@@ -95,7 +95,7 @@ namespace Projekt3.Models
 		public static bool Delete(int ID)
 		{
 			int result = DBMethods.ExecCommand(
-				"DELETE FROM dbo.Tbl_Profile " +
+				"DELETE FROM Tbl_Profile " +
 				"WHERE Pr_Id = " + ID + ");");
 			return result == 1;
 		}
@@ -111,7 +111,7 @@ namespace Projekt3.Models
 		public static bool Update(ProfileModel pm)
 		{
 			int result = DBMethods.ExecCommand(
-				"UPDATE dbo.Tbl_Profile " +
+				"UPDATE Tbl_Profile " +
 				"SET VALUES(" + GetString(pm) + ") " +
 				"WHERE Pr_Id=" + pm.ID + ";");
 			return result == 1;

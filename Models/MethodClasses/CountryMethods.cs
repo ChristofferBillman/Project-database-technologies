@@ -15,7 +15,7 @@ namespace Projekt3.Models
 		public static CountryModel SelectOne(int CountryID)
         {
 			DataSet ds = DBMethods.ExecQuery(
-				"SELECT * FROM dbo.Tbl_Country " +
+				"SELECT * FROM Tbl_Country " +
 				"WHERE Co_Id = " + CountryID + ";");
 
 			return SetFields(ds);
@@ -29,7 +29,7 @@ namespace Projekt3.Models
 		public static List<SelectListItem> SelectAll()
         {
 			DataSet ds = DBMethods.ExecQuery(
-				"SELECT * FROM dbo.Tbl_Country");
+				"SELECT * FROM Tbl_Country");
 
 			List<SelectListItem> countries = new List<SelectListItem>();
 
@@ -57,7 +57,7 @@ namespace Projekt3.Models
 		/// <returns> Returns true if the insert went through and false if it did not.</returns>
 		public static bool Insert(CountryModel cm)
 		{
-			int result = DBMethods.ExecCommand("INSERT INTO dbo.Tbl_Country VALUES (" + ConvertToString(cm) + ");");
+			int result = DBMethods.ExecCommand("INSERT INTO Tbl_Country VALUES (" + ConvertToString(cm) + ");");
 			return result == 1;
 		}
 
