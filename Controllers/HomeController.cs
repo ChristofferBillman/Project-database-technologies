@@ -106,7 +106,7 @@ namespace Projekt3.Controllers
 			{
 				var fileName = Path.GetFileName(uploadFile.FileName);
 
-				var filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "/wwwroot/images/", fileName);
+				var filePath = Path.Combine("wwwroot/images/", fileName);
 				pm.ProfilePicture = filePath;
 
 				using (var fileSrteam = new FileStream(filePath, FileMode.Create))
