@@ -163,6 +163,13 @@ namespace Projekt3.Controllers
 
 		public IActionResult Matches()
         {
+			string token = Request.Cookies["Token"];
+			int profileId = int.Parse(token.Split('_')[0]);
+
+			//HERE WE WANT TO FETCH A LIST OF MATCHES FOR THE LOGGED IN USER.
+
+			List<ProfileModel> matches = new List<ProfileModel>();
+
 			return View();
         }
 
