@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Projekt3.Controllers
 {
@@ -103,10 +104,9 @@ namespace Projekt3.Controllers
 
 			if (uploadFile != null && uploadFile.Length > 0)
 			{
-				Console.WriteLine("Tar oss i hit");
 				var fileName = Path.GetFileName(uploadFile.FileName);
-				//---------------------------------------------------------- HÄR MÅSTE MAN FIXA MED SIN EGEN DIRECTORY--------------------------------------------------------
-				var filePath = Path.Combine(Directory.GetCurrentDirectory(), "/Users/macca/VIKTORIAS_TILLFÄLLIGA_MAPP_DATABASER/1.0DatabasProjekt/wwwroot/images/", fileName);
+
+				var filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "/wwwroot/images/", fileName);
 				pm.ProfilePicture = filePath;
 
 				using (var fileSrteam = new FileStream(filePath, FileMode.Create))
