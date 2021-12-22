@@ -22,7 +22,7 @@
                     <div class="card shadow-sm">
                         <div class="card-header bg-transparent text-center">
                             <img class="profile_img" src="https://source.unsplash.com/600x300/?student" alt="student dp">
-                            <h3>@Html.DisplayFor(model => model.Firstname)  @Html.DisplayFor(model => model.Lastname) test testsson</h3>
+                            <h3>@Html.DisplayFor(model => model.Firstname)  @Html.DisplayFor(model => model.Lastname)</h3>
                         </div>
 
                     </div>
@@ -40,7 +40,7 @@
                                 </tr>
                                 <tr>
                                     <th width="30%">From</th>
-                                    <td>@Html.DisplayFor(model => model.Country)</td>
+                                    <td>@ViewBag.country</td>
                                 </tr>
                                 <tr>
                                     <th width="30%">Gender</th>
@@ -63,7 +63,7 @@
                             <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Desciption</h3>
                         </div>
                         <div class="card-body pt-0">
-                            <p>@Html.DisplayFor(model => model.Description) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <p>@Html.DisplayFor(model => model.Description) </p>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,8 @@
         </div>
     </div>
 
-    <div>
-        <input asp-action="" type="submit" value="Dislike" class="btn btn-primary" />
-        <input asp-action="" type="submit" value="Like" class="btn btn-primary" />
-    </div>
+    <form method="post" asp-action="Explore">
+        <input type="hidden" name="PersonId" value=@Model.ID>
+        <input type="submit" name="Dislike" value="Dislike" class="btn btn-primary"/>
+        <input type="submit" name="Like" value="Like" class="btn btn-primary"/>
+    </form>
