@@ -72,23 +72,12 @@ namespace Projekt3.Controllers
 		public IActionResult CreateUser()
 		{
 			// Creating lists to store the different database information to later be loaded into dropdown in view.
-			List<SelectListItem> Sexes = new List<SelectListItem>();
-			Sexes.Add(new SelectListItem() { Text = "Male", Value = "Male" });
-			Sexes.Add(new SelectListItem() { Text = "Female", Value = "Female" });
-			Sexes.Add(new SelectListItem() { Text = "Non-binary", Value = "Non-binary" });
-
-			List<SelectListItem> SexualPreferences = new List<SelectListItem>();
-			SexualPreferences.Add(new SelectListItem(){Text="Heterosexual", Value="Hetero"});
-			SexualPreferences.Add(new SelectListItem(){Text="Homosexual", Value="Homo"});
-			SexualPreferences.Add(new SelectListItem(){Text="Bisexual", Value="Bi"});
-
-			List<SelectListItem> Countries = new List<SelectListItem>();
-			Countries = CountryMethods.SelectAll();
+			List<List<SelectListItem>> dropdowns = GetFormDropdowns();
 
 			// ViewBag to send the lists to the views for display.
-			ViewBag.Sex = Sexes;
-			ViewBag.SexPref = SexualPreferences;
-			ViewBag.Country = Countries;
+			ViewBag.Sex = dropdowns[0];
+			ViewBag.SexPref = dropdowns[1];
+			ViewBag.Country = dropdowns[2];
 
 			return View();
 		}
@@ -119,10 +108,11 @@ namespace Projekt3.Controllers
 
 		public IActionResult Profile()
         {
-			string token = Request.Cookies["Token"];
+			string token = Request.Cookies["token"];
 			int profileId = int.Parse(token.Split('_')[0]);
 
 			ProfileModel pm = ProfileMethods.SelectOne(profileId);
+			ViewBag.country = CountryMethods.SelectOne(pm.Country);
 
 			return View(pm);
         }
@@ -130,11 +120,19 @@ namespace Projekt3.Controllers
 		[HttpGet]
 		public IActionResult ProfileEdit()
         {
-			string token = Request.Cookies["Token"];
+			string token = Request.Cookies["token"];
 			int profileId = int.Parse(token.Split('_')[0]);
 
+			List<List<SelectListItem>> dropdowns = GetFormDropdowns();
+
+			// ViewBag to send the lists to the views for display.
+			ViewBag.Sex = dropdowns[0];
+			ViewBag.SexPref = dropdowns[1];
+			ViewBag.Country = dropdowns[2];
 
 			ProfileModel pm = ProfileMethods.SelectOne(profileId);
+
+			ViewBag.country = CountryMethods.SelectOne(pm.Country);
 
 			ViewBag.pm = pm;
 
@@ -145,7 +143,19 @@ namespace Projekt3.Controllers
 		public IActionResult ProfileEditApply(IFormCollection form, IFormFile upload)
         {
 			ProfileModel pm = new ProfileModel(form);
-			ProfileMethods.Update(pm);
+
+			int id = int.Parse(Request.Cookies["token"].Split('_')[0]);
+			string salt = ProfileMethods.SelectOne(id).Salt;
+
+			if (!(pm.Password == "" || pm.Password == null)) 
+			{
+				pm.Password = Auth.Hash(pm.Password, salt); 
+				ProfileMethods.Update(pm); 
+			}
+			else
+			{
+				ProfileMethods.UpdateNoPassword(pm);
+			}
 
 			//ADD FILE UPLOAD
 
@@ -210,6 +220,27 @@ namespace Projekt3.Controllers
 		public IActionResult Error()
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+		private List<List<SelectListItem>> GetFormDropdowns(){
+			List<List<SelectListItem>> dropdowns = new List<List<SelectListItem>>();
+
+			List<SelectListItem> Sexes = new List<SelectListItem>();
+			Sexes.Add(new SelectListItem() { Text = "Male", Value = "Male" });
+			Sexes.Add(new SelectListItem() { Text = "Female", Value = "Female" });
+			Sexes.Add(new SelectListItem() { Text = "Non-binary", Value = "Non-binary" });
+
+			List<SelectListItem> SexualPreferences = new List<SelectListItem>();
+			SexualPreferences.Add(new SelectListItem(){Text="Heterosexual", Value="Hetero"});
+			SexualPreferences.Add(new SelectListItem(){Text="Homosexual", Value="Homo"});
+			SexualPreferences.Add(new SelectListItem(){Text="Bisexual", Value="Bi"});
+
+			List<SelectListItem> Countries = new List<SelectListItem>();
+			Countries = CountryMethods.SelectAll();
+
+			dropdowns.Add(Sexes);
+			dropdowns.Add(SexualPreferences);
+			dropdowns.Add(Countries);
+			return dropdowns;
 		}
 		/// <summary>
 		/// Saves the provided IFormFile into the directory

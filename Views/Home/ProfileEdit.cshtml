@@ -23,7 +23,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Password" class="control-label"></label>
-                        <input asp-for="Password" type="password" class="form-control" value="@ViewBag.pm.Password" />
+                        <input asp-for="Password" type="password" class="form-control"  />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Gender</label>
-                        <select name="Sex" class="form-control" asp-items="@ViewBag.Sex" selected="@ViewBag.pm.Gender"></select>
+                        <select name="Sex" class="form-control" asp-items="@ViewBag.Sex" selected="@ViewBag.pm.Sex"></select>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -107,7 +107,6 @@
                         </div>
                         <span asp-validation-for="ProfilePicture" class="text-danger"></span>
                     </div>
-
                     <div class="form-group">
                         <input asp-action="ProfileEditApply" type="submit" value="Save" class="btn btn-primary" />
                     </div>
@@ -119,6 +118,6 @@
 </div>
 
 <div>
-    <a asp-action="Profile">Back to Profile</a>
+    <a asp-action="Profile" class="btn btn-primary">Back to Profile</a>
 </div>
 
