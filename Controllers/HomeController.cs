@@ -146,10 +146,41 @@ namespace Projekt3.Controllers
 			return RedirectToAction("Profile", "Home");
         }
 
-		public IActionResult Explore()
-        {
-			return View();
-        }
+		public IActionResult Explore(IFormCollection form)
+		{
+			if(!Auth.Authenticate(Request.Cookies["token"])){
+				ViewBag.fail = "Something went wrong. Try to log out and in again to resolve the problem.";
+				return View();
+			}
+
+			// Problems with this approach:
+			// * User may be presented with the same profile many times.
+			// * The matches table will be filled with duplicates.
+			// * Poor performance. Fetches profiles one at a time.
+			//   Ideally this should be handled with AJAX so that
+			//   we can create a buffer of profiles on the client end.
+
+			ProfileModel person = ProfileMethods.SelectRandom();
+			ViewBag.country = CountryMethods.SelectOne(person.Country).Name;
+
+			// If there is no form, just send a person to be liked.
+			if(form.Count == 0){
+				return View(person);
+			}
+
+			// If the user liked the person presented to them.
+			if(form.ContainsKey("Like")){
+				int id = int.Parse(Request.Cookies["token"].Split('_')[0]);
+				ProfileModel user = ProfileMethods.SelectOne(id);
+
+				bool success = MatchMethods.Insert(id,int.Parse(form["PersonId"]));
+
+				if(!success){
+					ViewBag.fail = "Could not process like. Try logging in and out and try again.";
+				}
+			}
+			return View(person);
+		}
 
 		public IActionResult Matches()
         {
