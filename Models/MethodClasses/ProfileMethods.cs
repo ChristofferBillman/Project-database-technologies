@@ -68,6 +68,22 @@ namespace Projekt3.Models
 			return results;
 		}
 
+		public static ProfileModel SelectRandom(){
+			DataSet ds;
+			if(Config.USEMYSQL){
+				ds = DBMethods.ExecQuery(
+				"SELECT * FROM Tbl_Profile "+
+				"ORDER BY RAND() "+
+				"LIMIT 1");
+			}
+			else{
+				ds = DBMethods.ExecQuery(
+				"SELECT TOP 1 * FROM Tbl_Profile " +
+				"ORDER BY NEWID()");
+			}
+			return SetFields(ds);
+		}
+
 		/// <summary>
 		/// Insets a profileModel into the table Tbl_Profile.
 		/// </summary>
