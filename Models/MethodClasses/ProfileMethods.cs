@@ -67,7 +67,10 @@ namespace Projekt3.Models
 			}
 			return results;
 		}
-
+		/// <summary>
+		/// Selects a profile randomly.
+		/// </summary>
+		/// <returns> The profile. </returns>
 		public static ProfileModel SelectRandom(){
 			DataSet ds;
 			if(Config.USEMYSQL){

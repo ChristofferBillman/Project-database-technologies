@@ -179,6 +179,7 @@ namespace Projekt3.Controllers
 					ViewBag.fail = "Could not process like. Try logging in and out and try again.";
 				}
 			}
+			// If the user disliked the person, do nothing in DB and send them a new one.
 			return View(person);
 		}
 
