@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Projekt3.Models.ProfileModel>
+﻿@model Projekt3.Models.ProfileModel
 
 @{
     ViewData["Title"] = "Profile";
@@ -10,43 +10,49 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Firstname)</th>
-            <th>@Html.DisplayNameFor(model => model.Lastname)</th>
-            <th>@Html.DisplayNameFor(model => model.Age)</th>
-            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>Profile Picture</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Sexual Orientation</th>
 
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Firstname)
+                <img src="~/images/@Html.DisplayFor(model => model.ProfilePicture)"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Lastname)
+                @Html.DisplayFor(model => model.Firstname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Age)
+                @Html.DisplayFor(model => model.Lastname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(model => model.Age)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Country)
+                @Html.DisplayFor(model => model.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Sex)
+                @Html.DisplayFor(model => model.Country)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SexualPreference)
+                @Html.DisplayFor(model => model.Sex)
             </td>
             <td>
-                @Html.ActionLink("Edit", "ProfileEdit", new { /**/ }) |
+                @Html.DisplayFor(model => model.SexualPreference)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "ProfileEdit", new { /**/ })
             </td>
         </tr>
-        }
     </tbody>
 </table>
 

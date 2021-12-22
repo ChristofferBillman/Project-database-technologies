@@ -9,6 +9,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Projekt3.Controllers
 {
@@ -118,7 +119,12 @@ namespace Projekt3.Controllers
 
 		public IActionResult Profile()
         {
-			return View();
+			string token = Request.Cookies["Token"];
+			int profileId = int.Parse(token.Split('_')[0]);
+
+			ProfileModel pm = ProfileMethods.SelectOne(profileId);
+
+			return View(pm);
         }
 
 		[HttpGet]

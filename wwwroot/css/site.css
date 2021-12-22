@@ -139,14 +139,195 @@ img.avatar {
 /*-------- start page -----------*/
 
 .centeredCaption {
-    position: absolute;
-    top: 40%;
-    left: 30%;
     text-align: center;
-    padding: 40px;
-    border-radius: 20% 20% 20% 20%;
 }
 
 .indexCaption {
-    font-size: 200px;
+    font-size: 50px;
+}
+
+.indexWrapper {
+    padding-top: 30px;
+   
+}
+
+.alignIndex {
+    padding: 10px;
+}
+
+.svg-item {
+    width: 30%;
+    font-size: 16px;
+    margin: 0 auto;
+    animation: donutfade 1s;
+}
+
+.donut-ring {
+    stroke: #EBEBEB;
+}
+
+.donut-segment {
+    transform-origin: center;
+    stroke: #70bca5;
+}
+
+.donut-segment-2 {
+    stroke: #70bca5;
+    animation: donut1 3s;
+}
+
+.donut-segment-3 {
+    stroke: #315e51;
+    animation: donut2 3s;
+}
+
+.donut-segment-4 {
+    stroke: #498573;
+    animation: donut3 3s;
+}
+
+.segment-1 {
+    fill: #ccc;
+}
+
+.segment-2 {
+    fill: #70bca5;
+}
+
+.segment-3 {
+    fill: #315e51;
+}
+
+.segment-4 {
+    fill: #498573;
+}
+
+@keyframes donutfade {
+    /* this applies to the whole svg item wrapper */
+    0% {
+        opacity: .2;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes donutfadelong {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes donut1 {
+    0% {
+        stroke-dasharray: 0, 100;
+    }
+
+    100% {
+        stroke-dasharray: 95, 5;
+    }
+}
+
+@keyframes donut2 {
+    0% {
+        stroke-dasharray: 0, 100;
+    }
+
+    100% {
+        stroke-dasharray: 100, 0;
+    }
+}
+
+@keyframes donut3 {
+    0% {
+        stroke-dasharray: 0, 100;
+    }
+
+    100% {
+        stroke-dasharray: 90, 10;
+    }
+}
+
+.donut-percent {
+    animation: donutfadelong 1s;
+}
+
+.donut-data {
+    font-size: 0.12em;
+    line-height: 1;
+    transform: translateY(0.5em);
+    text-align: center;
+    text-anchor: middle;
+    color: #666;
+    fill: #666;
+    animation: donutfadelong 1s;
+}
+
+.donut-text {
+    font-family: Arial, Helvetica, sans-serif;
+    fill: #FF6200;
+}
+
+.donut-text-1 {
+    fill: #70bca5;
+}
+
+.donut-text-2 {
+    fill: #315e51;
+}
+
+.donut-text-3 {
+    fill: #498573;
+}
+
+.donut-label {
+    font-size: 0.28em;
+    font-weight: 700;
+    line-height: 1;
+    fill: #000;
+    transform: translateY(0.25em);
+}
+
+.donut-percent {
+    font-size: 0.5em;
+    line-height: 1;
+    transform: translateY(0.5em);
+    font-weight: bold;
+}
+
+/*---------home page---------*/
+
+.mybutton {
+    margin: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: 0.5s;
+    background: linear-gradient(90deg, var(--c1, #f6d365), var(--c2, #fda085) 51%, var(--c1, #f6d365)) var(--x, 0)/ 200%;
+    color: white;
+    text-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+.mybutton1 {
+    --c1: #70bca5;
+    --c2: #498573;
+}
+
+.mybutton2 {
+    --c1: #70bca5;
+    --c2: #498573;
+}
+
+.mybutton3 {
+    --c1: #70bca5;
+    --c2: #498573;
+}
+
+.mybutton:hover {
+    --x: 100%;
 }
