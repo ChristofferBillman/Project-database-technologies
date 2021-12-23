@@ -159,7 +159,7 @@ namespace Projekt3.Controllers
 
 			//ADD FILE UPLOAD
 
-			return RedirectToAction("Profile", "Home");
+			return RedirectToAction("Profile", "HomeController");
         }
 
 		public IActionResult Explore(IFormCollection form)
@@ -198,7 +198,8 @@ namespace Projekt3.Controllers
 			// If the user disliked the person, do nothing in DB and send them a new one.
 			return View(person);
 		}
-
+		
+		[HttpGet]
 		public IActionResult Matches()
         {
 			string token = Request.Cookies["Token"];
@@ -208,7 +209,25 @@ namespace Projekt3.Controllers
 
 			List<ProfileModel> matches = new List<ProfileModel>();
 
-			return View();
+			ProfileModel pm = ProfileMethods.SelectOne(profileId);
+
+			matches.Add(pm);
+
+			ViewBag.Country = CountryMethods.SelectOne(pm.Country);
+
+			return View(matches);
+        }
+
+		[HttpPost]
+		public IActionResult Unmatch(int matchID)
+        {
+
+			string token = Request.Cookies["token"];
+			int profileId = int.Parse(token.Split('_')[0]);
+
+			ProfileMethods.RemoveMatch(profileId, matchID);
+
+			return RedirectToAction("Matches", "HomeController");
         }
 
 		public IActionResult Privacy()
