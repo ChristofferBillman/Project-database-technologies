@@ -155,6 +155,16 @@ namespace Projekt3.Models
 			return result == 1;
 		}
 
+		public static bool RemoveMatch(int userID, int matchID)
+        {
+			int result = DBMethods.ExecCommand(
+				"DELETE * FROM Tbl_Match" +
+				"WHERE Ma_User1 ='"+userID+"' " +
+				"AND Ma_User2 ='"+matchID+"'" );
+
+			return result > 0;
+		}
+
 		/// <summary>
 		/// Creates a ProfileModel given a DataRow containing profile data.
 		/// NOTE: The values must be in order in the DataRow, which is the case
