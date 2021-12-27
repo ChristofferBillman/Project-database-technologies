@@ -90,10 +90,11 @@ namespace Projekt3.Controllers
 			// Generate salt and hash for user.
 			pm.Salt = Auth.GetRandomSalt();
 			pm.Password = Auth.Hash(form["password"],pm.Salt);
-			// Insert into DB.
-			bool success = ProfileMethods.Insert(pm);
 
 			await RecieveFile(uploadFile, pm);
+
+			// Insert into DB.
+			bool success = ProfileMethods.Insert(pm);
 
 			if (success){
 				return RedirectToAction("Home", "Home");
@@ -304,7 +305,7 @@ namespace Projekt3.Controllers
 				string fileName = index.ToString() + fileExtension;
 				string filePath = Path.Combine("wwwroot/uploadedfiles/", fileName);
 
-				pm.ProfilePicture = filePath;
+				pm.ProfilePicture = "/uploadedfiles/" + fileName;
 
 				using (var fileSrteam = new FileStream(filePath, FileMode.Create))
 				{
