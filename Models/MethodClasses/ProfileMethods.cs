@@ -158,9 +158,9 @@ namespace Projekt3.Models
 		public static bool RemoveMatch(int userID, int matchID)
         {
 			int result = DBMethods.ExecCommand(
-				"DELETE * FROM Tbl_Match" +
-				"WHERE Ma_User1 ='"+userID+"' " +
-				"AND Ma_User2 ='"+matchID+"'" );
+				"DELETE FROM Tbl_Match " +
+				"WHERE Ma_User1="+userID+
+				" AND Ma_User2="+matchID);
 
 			return result > 0;
 		}
