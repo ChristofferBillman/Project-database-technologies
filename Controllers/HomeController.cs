@@ -202,7 +202,7 @@ namespace Projekt3.Controllers
 		[HttpGet]
 		public IActionResult Matches()
         {
-			string token = Request.Cookies["Token"];
+			string token = Request.Cookies["token"];
 			int profileId = int.Parse(token.Split('_')[0]);
 
 			//HERE WE WANT TO FETCH A LIST OF MATCHES FOR THE LOGGED IN USER.
@@ -218,16 +218,15 @@ namespace Projekt3.Controllers
 			return View(matches);
         }
 
-		[HttpPost]
+		[HttpGet]
 		public IActionResult Unmatch(int matchID)
         {
-
 			string token = Request.Cookies["token"];
 			int profileId = int.Parse(token.Split('_')[0]);
 
 			ProfileMethods.RemoveMatch(profileId, matchID);
 
-			return RedirectToAction("Matches", "HomeController");
+			return RedirectToAction("Matches", "Home");
         }
 
 		public IActionResult Privacy()
