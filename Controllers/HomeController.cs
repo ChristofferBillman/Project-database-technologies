@@ -128,7 +128,7 @@ namespace Projekt3.Controllers
 			// ViewBag to send the lists to the views for display.
 			ViewBag.Sex = dropdowns[0];
 			ViewBag.SexPref = dropdowns[1];
-			ViewBag.Country = dropdowns[2];
+			ViewBag.CountryDropdown = dropdowns[2];
 
 			ProfileModel pm = ProfileMethods.SelectOne(profileId);
 
@@ -147,9 +147,9 @@ namespace Projekt3.Controllers
 			int id = int.Parse(Request.Cookies["token"].Split('_')[0]);
 			string salt = ProfileMethods.SelectOne(id).Salt;
 
-			if (!(pm.Password == "" || pm.Password == null)) 
+			if (!(form["Password"] == "" || form["Password"] == (IFormCollection)null))
 			{
-				pm.Password = Auth.Hash(pm.Password, salt); 
+				pm.Password = Auth.Hash(form["Password"], salt); 
 				ProfileMethods.Update(pm); 
 			}
 			else
@@ -159,7 +159,7 @@ namespace Projekt3.Controllers
 
 			//ADD FILE UPLOAD
 
-			return RedirectToAction("Profile", "HomeController");
+			return RedirectToAction("Profile", "Home");
         }
 
 		public IActionResult Explore(IFormCollection form)
