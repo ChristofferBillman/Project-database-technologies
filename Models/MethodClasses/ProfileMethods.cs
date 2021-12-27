@@ -132,8 +132,18 @@ namespace Projekt3.Models
 			Console.WriteLine(GetString(pm));
 			int result = DBMethods.ExecCommand(
 				"UPDATE Tbl_Profile " +
-				"SET VALUES(" + GetString(pm) + ") " +
-				"WHERE Pr_Id=" + pm.ID + ";");
+				"SET Pr_Firstname = '" + pm.Firstname +
+				"',Pr_Lastname = '"+ pm.Lastname + 
+				"',Pr_Age = "+ pm.Age.ToString() +
+				",Pr_Sex = '"+ pm.Sex + 
+				"',Pr_Country = "+ pm.Country.ToString() + 
+				",Pr_Pref = '"+ pm.SexualPreference +
+				",Pr_Salt = '"+pm.Salt+
+				",Pr_Password = '"+pm.Password+
+				"',Pr_Username = '" + pm.Username +
+				"',Pr_Desc = '" + pm.Description +
+				"',Pr_Email = '" + pm.Email +
+				"' WHERE Pr_Id = " + pm.ID + ";");
 			return result == 1;
 		}
 		public static bool UpdateNoPassword(ProfileModel pm)
