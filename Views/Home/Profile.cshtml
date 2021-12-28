@@ -3,7 +3,11 @@
 @{
     ViewData["Title"] = "Profile";
 }
-
+<header>
+    <div>
+        @await Html.PartialAsync("LoggedInHeader")
+    </div>
+</header>
 <h1>Profile</h1>
 
     <a asp-action="Home" class="word-link">Return to homepage</a>

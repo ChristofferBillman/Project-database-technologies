@@ -3,6 +3,11 @@
 @{
     ViewData["Title"] = "Explore";
 }
+<header>
+    <div>
+        @await Html.PartialAsync("LoggedInHeader")
+    </div>
+</header>
 
 <h1>Find your perfect match</h1>
 

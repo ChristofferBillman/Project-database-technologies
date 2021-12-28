@@ -3,7 +3,11 @@
 @{
     ViewData["Title"] = "ProfileEdit";
 }
-
+<header>
+    <div>
+        @await Html.PartialAsync("LoggedInHeader")
+    </div>
+</header>
 <h1>ProfileEdit</h1>
 
 <h4>ProfileModel</h4>
@@ -89,7 +93,7 @@
                     <div class="form-group">
                         <label>Profile Picture</label>
                         <div class="custom-file">
-                            <input asp-for="ProfilePicture" class="custom-file-input" id="customFile">
+                            <input asp-for="ProfilePicture" type="file" name="uploadFile" class="custom-file-input" id="customFile">
                             <label class="custom-file-label" for="customFile">Pick file</label>
                         </div>
                         <span asp-validation-for="ProfilePicture" class="text-danger"></span>
@@ -100,15 +104,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Description</label>
-                        <div class="custom-file">
-                            <input asp-for="Description" class="custom-file-input" id="customFile" value="@ViewBag.pm.Description">
-                            <label class="custom-file-label" for="customFile">Pick file</label>
-                        </div>
-                        <span asp-validation-for="ProfilePicture" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input asp-action="ProfileEditApply" type="submit" value="Save" class="btn btn-primary" />
+                        <label asp-for="Description" class="control-label"></label>
+                        <input asp-for="Description" class="form-control" value="@ViewBag.pm.Description" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </div>
             </div>
