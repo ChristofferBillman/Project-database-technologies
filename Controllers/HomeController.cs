@@ -147,6 +147,7 @@ namespace Projekt3.Controllers
 
 			int id = int.Parse(Request.Cookies["token"].Split('_')[0]);
 			string salt = ProfileMethods.SelectOne(id).Salt;
+			pm.ID = id;
 
 			if (!(form["Password"] == "" || form["Password"] == (IFormCollection)null))
 			{
