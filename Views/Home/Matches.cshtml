@@ -6,6 +6,9 @@
 
 <h1>Matches</h1>
 
+    <a asp-action="Home" class="word-link">Return to homepage</a>
+    <hr />
+
 <table class="table">
     <thead>
         <tr>
@@ -72,7 +75,7 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Unmatch", "Unmatch", new { matchID = item.ID}, null)
+                    @Html.ActionLink("Unmatch", "Unmatch", new { matchID = item.ID }, null)
                 </td>
             </tr>
         }
