@@ -231,6 +231,14 @@ namespace Projekt3.Controllers
 			return RedirectToAction("Matches", "Home");
         }
 
+		public IActionResult Signout()
+        {
+
+			Response.Cookies.Delete("token");
+
+			return RedirectToAction("Index", "Home");
+		}
+
 		public IActionResult Privacy()
 		{
 			return View();
