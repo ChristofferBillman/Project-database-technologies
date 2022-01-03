@@ -67,6 +67,25 @@ namespace Projekt3.Models
 			}
 			return results;
 		}
+		/// <summary>
+		/// Selects a profile randomly.
+		/// </summary>
+		/// <returns> The profile. </returns>
+		public static ProfileModel SelectRandom(){
+			DataSet ds;
+			if(Config.USEMYSQL){
+				ds = DBMethods.ExecQuery(
+				"SELECT * FROM Tbl_Profile "+
+				"ORDER BY RAND() "+
+				"LIMIT 1");
+			}
+			else{
+				ds = DBMethods.ExecQuery(
+				"SELECT TOP 1 * FROM Tbl_Profile " +
+				"ORDER BY NEWID()");
+			}
+			return SetFields(ds);
+		}
 
 		/// <summary>
 		/// Insets a profileModel into the table Tbl_Profile.
@@ -110,11 +129,50 @@ namespace Projekt3.Models
 		/// <returns>True if successful, otherwise false.</returns>
 		public static bool Update(ProfileModel pm)
 		{
+			Console.WriteLine(GetString(pm));
 			int result = DBMethods.ExecCommand(
 				"UPDATE Tbl_Profile " +
-				"SET VALUES(" + GetString(pm) + ") " +
-				"WHERE Pr_Id=" + pm.ID + ";");
+				"SET Pr_Firstname = '" + pm.Firstname +
+				"',Pr_Lastname = '"+ pm.Lastname + 
+				"',Pr_Age = "+ pm.Age.ToString() +
+				",Pr_Sex = '"+ pm.Sex + 
+				"',Pr_Country = "+ pm.Country.ToString() + 
+				",Pr_Pref = '"+ pm.SexualPreference +
+				",Pr_Salt = '"+pm.Salt+
+				",Pr_Password = '"+pm.Password+
+				"',Pr_Username = '" + pm.Username +
+				"',Pr_Desc = '" + pm.Description +
+				"',Pr_Email = '" + pm.Email +
+				"' WHERE Pr_Id = " + pm.ID + ";");
 			return result == 1;
+		}
+		public static bool UpdateNoPassword(ProfileModel pm)
+		{
+			int result = DBMethods.ExecCommand(
+				"UPDATE Tbl_Profile " +
+				"SET "+
+				"Pr_Firstname = '" + pm.Firstname +
+				"',Pr_Lastname = '"+ pm.Lastname + 
+				"',Pr_Age = "+ pm.Age.ToString() +
+				",Pr_Sex = '"+ pm.Sex + 
+				"',Pr_Country = "+ pm.Country.ToString() + 
+				",Pr_Pref = '"+ pm.SexualPreference +
+				"',Pr_Username = '" + pm.Username +
+				"',Pr_Desc = '" + pm.Description +
+				"',Pr_Email = '" + pm.Email +
+				"' WHERE Pr_Id = " + pm.ID + ";");
+
+			return result == 1;
+		}
+
+		public static bool RemoveMatch(int userID, int matchID)
+        {
+			int result = DBMethods.ExecCommand(
+				"DELETE FROM Tbl_Match " +
+				"WHERE Ma_User1="+userID+
+				" AND Ma_User2="+matchID);
+
+			return result > 0;
 		}
 
 		/// <summary>

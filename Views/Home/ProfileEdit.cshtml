@@ -3,7 +3,11 @@
 @{
     ViewData["Title"] = "ProfileEdit";
 }
-
+<header>
+    <div>
+        @await Html.PartialAsync("LoggedInHeader")
+    </div>
+</header>
 <h1>ProfileEdit</h1>
 
 <h4>ProfileModel</h4>
@@ -23,7 +27,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Password" class="control-label"></label>
-                        <input asp-for="Password" type="password" class="form-control" value="@ViewBag.pm.Password" />
+                        <input asp-for="Password" type="password" class="form-control"  />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
@@ -67,7 +71,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Gender</label>
-                        <select name="Sex" class="form-control" asp-items="@ViewBag.Sex" selected="@ViewBag.pm.Gender"></select>
+                        <select name="Sex" class="form-control" asp-items="@ViewBag.Sex" selected="@ViewBag.pm.Sex"></select>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -82,14 +86,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Country</label>
-                        <select name="Country" class="form-control" asp-items="@ViewBag.Country" selected="@ViewBag.pm.Country" ></select>
+                        <select name="Country" class="form-control" asp-items="@ViewBag.CountryDropdown" selected="@ViewBag.pm.Country" ></select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Profile Picture</label>
                         <div class="custom-file">
-                            <input asp-for="ProfilePicture" class="custom-file-input" id="customFile">
+                            <input asp-for="ProfilePicture" type="file" name="uploadFile" class="custom-file-input" id="customFile">
                             <label class="custom-file-label" for="customFile">Pick file</label>
                         </div>
                         <span asp-validation-for="ProfilePicture" class="text-danger"></span>
@@ -100,16 +104,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Description</label>
-                        <div class="custom-file">
-                            <input asp-for="Description" class="custom-file-input" id="customFile" value="@ViewBag.pm.Description">
-                            <label class="custom-file-label" for="customFile">Pick file</label>
-                        </div>
-                        <span asp-validation-for="ProfilePicture" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <input asp-action="ProfileEditApply" type="submit" value="Save" class="btn btn-primary" />
+                        <label asp-for="Description" class="control-label"></label>
+                        <input asp-for="Description" class="form-control" value="@ViewBag.pm.Description" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -119,6 +116,6 @@
 </div>
 
 <div>
-    <a asp-action="Profile">Back to Profile</a>
+    <a asp-action="Profile" class="btn btn-primary">Back to Profile</a>
 </div>
 

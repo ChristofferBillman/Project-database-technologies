@@ -3,7 +3,11 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+<header>
+    <div>
+        @await Html.PartialAsync("LoginHeader")
+    </div>
+</header>
 
 <div class="indexWrapper">
     <div class="centeredCaption">

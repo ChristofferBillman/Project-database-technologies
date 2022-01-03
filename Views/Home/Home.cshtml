@@ -2,6 +2,11 @@
 @{
     ViewData["Title"] = "Home";
 }
+<header>
+    <div>
+        @await Html.PartialAsync("LoggedInHeader")
+    </div>
+</header>
 
 <h1>Welcome to your home page</h1>
 <form>

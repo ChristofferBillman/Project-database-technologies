@@ -3,8 +3,15 @@
 @{
     ViewData["Title"] = "Matches";
 }
-
+<header>
+    <div>
+        @await Html.PartialAsync("LoggedInHeader")
+    </div>
+</header>
 <h1>Matches</h1>
+
+    <a asp-action="Home" class="word-link">Return to homepage</a>
+    <hr />
 
 <table class="table">
     <thead>
@@ -72,7 +79,7 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Unmatch", "Unmatch", new { matchID = item.ID }, null)
                 </td>
             </tr>
         }

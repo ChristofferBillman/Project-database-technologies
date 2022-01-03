@@ -3,9 +3,15 @@
 @{
     ViewData["Title"] = "Profile";
 }
-
+<header>
+    <div>
+        @await Html.PartialAsync("LoggedInHeader")
+    </div>
+</header>
 <h1>Profile</h1>
 
+    <a asp-action="Home" class="word-link">Return to homepage</a>
+    <hr />
 
 <table class="table table-bordered">
     <thead>
@@ -15,6 +21,7 @@
             <th>Last Name</th>
             <th>Age</th>
             <th>Email</th>
+            <th>Country</th>
             <th>Gender</th>
             <th>Sexual Orientation</th>
 
@@ -23,7 +30,7 @@
     <tbody>
         <tr>
             <td>
-                <img src="~/images/@Html.DisplayFor(model => model.ProfilePicture)"
+                <img src="@Model.ProfilePicture"
                      class="rounded-circle"
                      height="40" width="40"
                      asp-append-version="true" />
@@ -41,7 +48,7 @@
                 @Html.DisplayFor(model => model.Email)
             </td>
             <td>
-                @Html.DisplayFor(model => model.Country)
+                @ViewBag.country.Name
             </td>
             <td>
                 @Html.DisplayFor(model => model.Sex)
@@ -56,9 +63,4 @@
     </tbody>
 </table>
 
-
-
-
-<div class="form-group">
-    <input asp-action="ProfileEdit" type="submit" value="Edit Profile" class="btn btn-primary" />
-</div>
+<a href="/Home/ProfileEdit">Edit profile</a>
