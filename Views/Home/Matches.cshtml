@@ -51,7 +51,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProfilePicture)
+                    <img src="@item.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Firstname)
@@ -66,7 +69,7 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Country)
+                    @ViewBag.country.Name
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Sex)

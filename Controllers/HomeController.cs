@@ -114,9 +114,31 @@ namespace Projekt3.Controllers
 
 			ProfileModel pm = ProfileMethods.SelectOne(profileId);
 			ViewBag.country = CountryMethods.SelectOne(pm.Country);
-
+			
+			ViewBag.picture = pm.ProfilePicture;
 			return View(pm);
         }
+
+
+		public async Task<IActionResult> DownloadFile()
+		{
+			string token = Request.Cookies["token"];
+			int profileId = int.Parse(token.Split('_')[0]);
+			ProfileModel pm = ProfileMethods.SelectOne(profileId);
+
+			var path = Path.GetFullPath("/wwwroot" + pm.ProfilePicture);
+			MemoryStream memory = new MemoryStream();
+			using (FileStream stream = new FileStream(path, FileMode.Open))
+			{
+				await stream.CopyToAsync(memory);
+			}
+
+			string[] subs = path.Split('/');
+
+			memory.Position = 0;
+			return File(memory, "image/png", subs[2]);
+		}
+
 
 		[HttpGet]
 		public IActionResult ProfileEdit()

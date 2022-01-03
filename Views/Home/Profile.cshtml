@@ -57,10 +57,11 @@
                 @Html.DisplayFor(model => model.SexualPreference)
             </td>
             <td>
-                @Html.ActionLink("Edit", "ProfileEdit", new { /**/ })
+                <a class="word-link" href="/Home/ProfileEdit">Edit</a>
             </td>
         </tr>
     </tbody>
 </table>
 
-<a href="/Home/ProfileEdit">Edit profile</a>
+<p>Det här är vad som finns i profilepicture: @ViewBag.picture</p>
+ <a class="btn btn-primary" asp-controller="Home" asp-action="DownloadFile" target="_blank">Download profile picture</a>
