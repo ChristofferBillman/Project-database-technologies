@@ -97,6 +97,8 @@ namespace Projekt3.Controllers
 			bool success = ProfileMethods.Insert(pm);
 
 			if (success){
+				int id = ProfileMethods.SelectOne(form["username"]).ID;
+				Response.Cookies.Append("token", id + "_" + pm.Password);
 				return RedirectToAction("Home", "Home");
 			}
 			return RedirectToAction("CreateUser","Home", new {success = false});
