@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Data;
+
 namespace Projekt3.Models
 {
 	public static class MatchMethods
@@ -17,6 +20,20 @@ namespace Projekt3.Models
 				"(Ma_User1, Ma_User2, Ma_Date) "+
 				"VALUES ("+ id1 +","+ id2 + ",'"+ dateString +"');");
 			return result == 1;
+		}
+		public static List<ProfileModel> Select(int userId)
+		{
+			DataSet ds = DBMethods.ExecQuery("EXEC MatchList @user = " + userId);
+
+			List<ProfileModel> results = new List<ProfileModel>();
+			
+			DataRow row;
+			for(int i = 0; i < ds.Tables["data"].Rows.Count; i++)
+			{
+				row = ds.Tables["data"].Rows[i];
+				results.Add(new ProfileModel(row));
+			}
+			return results;
 		}
 	}
 }

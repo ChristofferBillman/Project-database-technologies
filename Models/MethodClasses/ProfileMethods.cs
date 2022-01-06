@@ -191,7 +191,7 @@ namespace Projekt3.Models
 		/// </summary>
 		/// <param name="ds">DataTable!</param>
 		/// <returns>The ProfileModel, now populated with the data from the DataRow.</returns>
-		private static ProfileModel SetFields(DataSet ds)
+		public static ProfileModel SetFields(DataSet ds)
 		{
 			return new ProfileModel(ds.Tables["data"].Rows[0]);
 		}

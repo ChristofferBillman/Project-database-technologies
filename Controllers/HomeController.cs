@@ -292,16 +292,12 @@ namespace Projekt3.Controllers
 
 			//HERE WE WANT TO FETCH A LIST OF MATCHES FOR THE LOGGED IN USER.
 
-			List<ProfileModel> matches = new List<ProfileModel>();
-
-			ProfileModel pm = ProfileMethods.SelectOne(profileId);
-
-			matches.Add(pm);
-
-			ViewBag.Country = CountryMethods.SelectOne(pm.Country);
+			List<ProfileModel> matches = MatchMethods.Select(profileId);
 
 			return View(matches);
         }
+
+
 
 		[HttpGet]
 		public IActionResult Unmatch(int matchID)
