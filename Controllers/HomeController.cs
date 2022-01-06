@@ -9,7 +9,9 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
-using Microsoft.AspNetCore.Hosting;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 
 namespace Projekt3.Controllers
 {
@@ -59,6 +61,62 @@ namespace Projekt3.Controllers
 			}
 			return View();
 		}
+		public IActionResult ForgotPassword()
+		{
+			return View();
+		}
+		public IActionResult SendEmail(string email)
+		{
+			//Create a new password
+			ProfileModel pm = ProfileMethods.SelectEmail(email);
+
+			Random random = new Random();
+
+			int[] randompassword = new int[6];
+
+			for (int i = 0; i < 6; i++)
+			{
+				randompassword[i] = random.Next(0, 9);
+			}
+
+			string s = String.Join("", new List<int>(randompassword).ConvertAll(i => i.ToString()).ToArray());
+
+			pm.Password = Auth.Hash(s, pm.Salt);
+			ProfileMethods.Update(pm);
+
+			// Send email to user.
+			string to = email; //To address
+			string from = "projekdejting@gmail.com"; //From address    
+			MailMessage message = new MailMessage(from, to);
+
+			string mailbody = "A password reset has been requested. Your new password is: " + s;
+
+			message.Subject = "Password reset from Dating App.";
+			message.Body = mailbody;
+			message.BodyEncoding = Encoding.UTF8;
+			message.IsBodyHtml = true;
+			SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
+			NetworkCredential basicCredential1 = new
+			NetworkCredential("projekdejting@gmail.com", "sten1234");
+			client.EnableSsl = true;
+			client.UseDefaultCredentials = false;
+			client.Credentials = basicCredential1;
+			try
+			{
+				client.Send(message);
+			}
+
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+
+			return RedirectToAction("Login");
+		}
+		public IActionResult  ResetPassword()
+		{
+			return View();
+		}
 
 		[HttpPost]
 		public IActionResult CheckCredentials()
@@ -97,6 +155,8 @@ namespace Projekt3.Controllers
 			bool success = ProfileMethods.Insert(pm);
 
 			if (success){
+				int id = ProfileMethods.SelectOne(form["username"]).ID;
+				Response.Cookies.Append("token", id + "_" + pm.Password);
 				return RedirectToAction("Home", "Home");
 			}
 			return RedirectToAction("CreateUser","Home", new {success = false});
@@ -173,7 +233,8 @@ namespace Projekt3.Controllers
 
 			if (!(form["Password"] == "" || form["Password"] == (IFormCollection)null))
 			{
-				pm.Password = Auth.Hash(form["Password"], salt); 
+				pm.Password = Auth.Hash(form["Password"], salt);
+				pm.Salt = salt;
 				ProfileMethods.Update(pm); 
 			}
 			else

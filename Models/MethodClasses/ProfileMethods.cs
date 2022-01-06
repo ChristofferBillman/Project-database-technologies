@@ -3,6 +3,7 @@ using System.Data;
 using System.Text;
 using System;
 
+
 namespace Projekt3.Models
 {
 	public static class ProfileMethods
@@ -26,6 +27,12 @@ namespace Projekt3.Models
 			DataSet ds = DBMethods.ExecQuery(
 				"SELECT * FROM Tbl_Profile " + "WHERE Pr_Username = '" + username + "'" );
 				Console.WriteLine("SELECT * FROM Tbl_Profile " + "WHERE Pr_Username = '" + username + "'" );
+			return SetFields(ds);
+		}
+		public static ProfileModel SelectEmail(string email)
+		{
+			DataSet ds = DBMethods.ExecQuery(
+				"SELECT * FROM Tbl_Profile " + "WHERE Pr_Email = '" + email + "'");
 			return SetFields(ds);
 		}
 		/// <summary>
@@ -138,8 +145,8 @@ namespace Projekt3.Models
 				",Pr_Sex = '"+ pm.Sex + 
 				"',Pr_Country = "+ pm.Country.ToString() + 
 				",Pr_Pref = '"+ pm.SexualPreference +
-				",Pr_Salt = '"+pm.Salt+
-				",Pr_Password = '"+pm.Password+
+				"',Pr_Salt = '"+pm.Salt+
+				"',Pr_Password = '"+pm.Password+
 				"',Pr_Username = '" + pm.Username +
 				"',Pr_Desc = '" + pm.Description +
 				"',Pr_Email = '" + pm.Email +
@@ -161,6 +168,8 @@ namespace Projekt3.Models
 				"',Pr_Desc = '" + pm.Description +
 				"',Pr_Email = '" + pm.Email +
 				"' WHERE Pr_Id = " + pm.ID + ";");
+
+			Console.WriteLine("Vi kom hit: " + result);
 
 			return result == 1;
 		}
