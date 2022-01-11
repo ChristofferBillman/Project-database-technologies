@@ -24,7 +24,7 @@
             <th>Country</th>
             <th>Gender</th>
             <th>Sexual Orientation</th>
-
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -33,7 +33,8 @@
                 <img src="@Model.ProfilePicture"
                      class="rounded-circle"
                      height="40" width="40"
-                     asp-append-version="true" />
+                     asp-append-version="true"
+                     alt="Profile Picture"/>
 
                 <a class="word-link" asp-controller="Home" asp-action="DownloadFile" download>Download picture</a> 
 
